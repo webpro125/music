@@ -1,0 +1,14 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+#= require plugins/backstretch/jquery.backstretch.min.js
+#= require plugins/wow-animations/js/wow.min
+#= require app
+
+jQuery(document).ready ->
+  App.init()
+  (new WOW).init()
+  $(".fullscreen-static-image1").backstretch([
+      "<%= asset_path('img10.jpg') %>"
+    ], {duration: 8000, fade: 800})
+  return
