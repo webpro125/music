@@ -1,0 +1,2 @@
+class IndustryProfile < ApplicationRecord
+end

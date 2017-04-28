@@ -35,9 +35,9 @@ class DeviseCreateListeners < ActiveRecord::Migration[5.0]
       t.string :last_name, length: 64
       t.date :birth_date
       t.integer :gender
-      t.references :city_id, index: true
-      t.references :region_id, index: true
-      t.references :province_id, index: true
+      t.references :city, index: true
+      t.references :region, index: true
+      t.references :province, index: true
 
       t.timestamps null: false
 

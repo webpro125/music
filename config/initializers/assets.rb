@@ -13,7 +13,13 @@ Rails.application.config.assets.precompile += [
     'home.css',
     'listeners/sessions.css',
     'listeners/registrations.css',
+    'professionals/registrations.css',
+    'listeners/profiles.css'
+
 ]
 Rails.application.config.assets.precompile += [
     'home.js',
+    'listeners/registrations.js',
+    'professionals/registrations.js',
+    'listeners/profiles.js'
 ]

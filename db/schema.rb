@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428061020) do
+ActiveRecord::Schema.define(version: 20170428202739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "industry_profiles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "industry_sub_profiles", force: :cascade do |t|
+    t.integer  "industry_profile_id"
+    t.string   "name"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["industry_profile_id"], name: "index_industry_sub_profiles_on_industry_profile_id", using: :btree
+  end
+
+  create_table "listener_profiles", force: :cascade do |t|
+    t.integer  "listener_id"
+    t.integer  "genre_id"
+    t.integer  "sub_genre_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["genre_id"], name: "index_listener_profiles_on_genre_id", using: :btree
+    t.index ["listener_id"], name: "index_listener_profiles_on_listener_id", using: :btree
+    t.index ["sub_genre_id"], name: "index_listener_profiles_on_sub_genre_id", using: :btree
+  end
 
   create_table "listeners", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -38,21 +69,36 @@ ActiveRecord::Schema.define(version: 20170428061020) do
     t.string   "last_name"
     t.date     "birth_date"
     t.integer  "gender"
-    t.integer  "city_id_id"
-    t.integer  "region_id_id"
-    t.integer  "province_id_id"
+    t.integer  "city_id"
+    t.integer  "region_id"
+    t.integer  "province_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "profile_name"
     t.string   "city"
-    t.index ["city_id_id"], name: "index_listeners_on_city_id_id", using: :btree
+    t.index ["city_id"], name: "index_listeners_on_city_id", using: :btree
     t.index ["confirmation_token"], name: "index_listeners_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_listeners_on_email", unique: true, using: :btree
-    t.index ["province_id_id"], name: "index_listeners_on_province_id_id", using: :btree
-    t.index ["region_id_id"], name: "index_listeners_on_region_id_id", using: :btree
+    t.index ["province_id"], name: "index_listeners_on_province_id", using: :btree
+    t.index ["region_id"], name: "index_listeners_on_region_id", using: :btree
     t.index ["reset_password_token"], name: "index_listeners_on_reset_password_token", unique: true, using: :btree
     t.index ["unlock_token"], name: "index_listeners_on_unlock_token", unique: true, using: :btree
     t.index ["username"], name: "index_listeners_on_username", unique: true, using: :btree
+  end
+
+  create_table "professional_profiles", force: :cascade do |t|
+    t.integer  "professional_id"
+    t.integer  "industry_profile_id"
+    t.integer  "industry_sub_profile_id"
+    t.integer  "genre_id"
+    t.boolean  "hireable_lesson"
+    t.boolean  "hireable_booking"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["genre_id"], name: "index_professional_profiles_on_genre_id", using: :btree
+    t.index ["industry_profile_id"], name: "index_professional_profiles_on_industry_profile_id", using: :btree
+    t.index ["industry_sub_profile_id"], name: "index_professional_profiles_on_industry_sub_profile_id", using: :btree
+    t.index ["professional_id"], name: "index_professional_profiles_on_professional_id", using: :btree
   end
 
   create_table "professionals", force: :cascade do |t|
@@ -78,21 +124,43 @@ ActiveRecord::Schema.define(version: 20170428061020) do
     t.string   "last_name"
     t.date     "birth_date"
     t.integer  "gender"
-    t.integer  "city_id_id"
-    t.integer  "region_id_id"
-    t.integer  "province_id_id"
+    t.integer  "city_id"
+    t.integer  "region_id"
+    t.integer  "province_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "profile_name"
     t.string   "city"
-    t.index ["city_id_id"], name: "index_professionals_on_city_id_id", using: :btree
+    t.index ["city_id"], name: "index_professionals_on_city_id", using: :btree
     t.index ["confirmation_token"], name: "index_professionals_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_professionals_on_email", unique: true, using: :btree
-    t.index ["province_id_id"], name: "index_professionals_on_province_id_id", using: :btree
-    t.index ["region_id_id"], name: "index_professionals_on_region_id_id", using: :btree
+    t.index ["province_id"], name: "index_professionals_on_province_id", using: :btree
+    t.index ["region_id"], name: "index_professionals_on_region_id", using: :btree
     t.index ["reset_password_token"], name: "index_professionals_on_reset_password_token", unique: true, using: :btree
     t.index ["unlock_token"], name: "index_professionals_on_unlock_token", unique: true, using: :btree
     t.index ["username"], name: "index_professionals_on_username", unique: true, using: :btree
+  end
+
+  create_table "provinces", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_provinces_on_region_id", using: :btree
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_genres", force: :cascade do |t|
+    t.integer  "genre_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_sub_genres_on_genre_id", using: :btree
   end
 
 end

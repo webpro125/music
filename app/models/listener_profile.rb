@@ -1,0 +1,2 @@
+class ListenerProfile < ApplicationRecord
+end

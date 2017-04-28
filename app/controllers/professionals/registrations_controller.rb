@@ -1,5 +1,5 @@
 class Professionals::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -39,9 +39,10 @@ class Professionals::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :profile_name,
+                                                       :username, :birth_date, :gender, :region_id, :province_id, :city])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
