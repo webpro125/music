@@ -5,7 +5,7 @@ html
       | Music
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{controller_name}.css")
+    = stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css")
     = yield :style
     /= javascript_include_tag "https://www.google.com/jsapi"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -36,5 +36,5 @@ html
                       li[class="#{page_class_active 'pages', 'index'}"]
                         = link_to 'Home', root_path, class: 'dropdown-toggle'
                       li.page-scroll
-                        = link_to 'Sign-out', destroy_user_session_path, method: :delete
+                        = link_to 'Sign-out', destroy_listener_session_path, method: :delete
         = yield

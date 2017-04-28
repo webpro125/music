@@ -1,0 +1,22 @@
+.container.content
+  .row
+    .col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'reg-page'}) do |f|
+        h2.text-center Music Listener Sign Up
+        = f.error_notification
+        .row
+          .col-md-6
+            = f.input :first_name, required: true, autofocus: true
+          .col-md-6
+            = f.input :last_name, required: true
+        = f.input :email, required: true
+        .row
+          .col-md-6
+            = f.input :username, required: true
+          .col-md-6
+            = f.input :profile_name, required: true
+        = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
+        = f.input :password_confirmation, required: true
+        .form-actions
+          = f.button :submit, "Sign up"
+      = render "listeners/shared/links"

@@ -25,8 +25,8 @@ development:
   <<: *default
   database: music_development
   host: localhost
-  username: root
-  password: flygare
+  username: <%= ENV['MUSIC_DATABASE_USERNAME'] %>
+  password: <%= ENV['MUSIC_DATABASE_PASSWORD'] %>
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -83,5 +83,5 @@ test:
 production:
   <<: *default
   database: music_production
-  username: music
+  username: <%= ENV['MUSIC_DATABASE_USERNAME'] %>
   password: <%= ENV['MUSIC_DATABASE_PASSWORD'] %>

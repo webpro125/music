@@ -11,6 +11,8 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += [
     'home.css',
+    'listeners/sessions.css',
+    'listeners/registrations.css',
 ]
 Rails.application.config.assets.precompile += [
     'home.js',
