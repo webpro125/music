@@ -1,0 +1,20 @@
+.content.container
+  .row
+    .col-md-8.col-md-offset-2.col-sm-12
+      h3 Industry Professional Profile
+      = render 'layouts/flash'
+      = simple_form_for(@professional_profile, url: professionals_profile_path, html: {class: 'professional-profile-form', method: 'POST'}) do |f|
+        = f.input :hireable_lesson,
+                  :as => :radio_buttons,
+                  :label => "Are You Hirable For Lessons"
+
+        = f.input :hireable_booking,
+                  :as => :radio_buttons,
+                  :label => "Are You Hirable For Booking"
+        .wrap.margin-bottom-20
+          = f.simple_fields_for :ip_profiles do |l|
+            = render 'professionals/profiles/profile_fields', f: l
+          = link_to_add_association content_tag(:i, '', {class: 'fa fa-plus'}) + ' Add More', f, :ip_profiles,
+                                      partial: 'professionals/profiles/profile_fields', class: 'btn btn-info mrg15B btn-sm add-genre'
+        .form-actions
+          = f.button :submit, "Submit"

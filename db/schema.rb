@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502022922) do
+ActiveRecord::Schema.define(version: 20170502142321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,25 @@ ActiveRecord::Schema.define(version: 20170502022922) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.index ["industry_profile_id"], name: "index_industry_sub_profiles_on_industry_profile_id", using: :btree
+  end
+
+  create_table "ip_profiles", force: :cascade do |t|
+    t.integer  "professional_profile_id"
+    t.integer  "profile_id"
+    t.string   "profile_name"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["professional_profile_id"], name: "index_ip_profiles_on_professional_profile_id", using: :btree
+    t.index ["profile_id"], name: "index_ip_profiles_on_profile_id", using: :btree
+  end
+
+  create_table "ip_sub_profiles", force: :cascade do |t|
+    t.integer  "ip_profile_id"
+    t.integer  "sub_profile_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["ip_profile_id"], name: "index_ip_sub_profiles_on_ip_profile_id", using: :btree
+    t.index ["sub_profile_id"], name: "index_ip_sub_profiles_on_sub_profile_id", using: :btree
   end
 
   create_table "listener_genres", force: :cascade do |t|
@@ -79,6 +98,12 @@ ActiveRecord::Schema.define(version: 20170502022922) do
     t.index ["user_id"], name: "index_professional_profiles_on_user_id", using: :btree
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string   "name"
     t.integer  "region_id"
@@ -99,6 +124,14 @@ ActiveRecord::Schema.define(version: 20170502022922) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["genre_id"], name: "index_sub_genres_on_genre_id", using: :btree
+  end
+
+  create_table "sub_profiles", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_sub_profiles_on_profile_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

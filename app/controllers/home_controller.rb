@@ -20,12 +20,16 @@ class HomeController < ApplicationController
     render layout: false
   end
 
+  def get_sub_profile
+    @sub_profiles = Profile.find(params[:id]).sub_profiles
+    render layout: false
+  end
+
   def profile
     if current_user.music_listener?
       redirect_to new_listeners_profile_path
     end
-
-    if current_user.industry_professional? && current_user.professional_profile.nil?
+    if current_user.industry_professional?
       redirect_to new_professionals_profile_path
     end
 

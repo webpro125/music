@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IndustryProfileTest < ActiveSupport::TestCase
+class IpProfileTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

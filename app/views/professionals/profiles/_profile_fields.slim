@@ -1,0 +1,21 @@
+/- f.object.listener_sub_genres.build
+.nested-fields.profile-wrap
+  .row
+    .col-md-3
+      = f.input :profile_id, autofocus: true, as: :select,
+                collection: Profile.pluck(:name, :id), input_html: { class: 'jquery-chosen profile-id'}
+      = f.input :profile_name, required: true
+    .col-md-9
+      div
+        = f.simple_fields_for :ip_sub_profiles do |l|
+          = render 'professionals/profiles/sub_profile_fields', f: l
+        = link_to_add_association content_tag(:i, '', {class: 'fa fa-plus'}) + ' Add More Sub genre', f, :ip_sub_profiles,
+                                partial: 'professionals/profiles/sub_profile_fields', class: 'btn btn-info mrg15B btn-sm add-sub-profile'
+  .row
+    .col-md-2
+      .form-group
+        = f.label 'Action + '
+        br
+        = link_to_remove_association content_tag(:i, ' Remove Profile', {class: 'fa fa-trash-o'}),
+                                     f, class: 'btn btn-danger mrg20T btn-sm'
+  hr.hr-md

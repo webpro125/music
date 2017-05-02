@@ -17,7 +17,9 @@ class User < ApplicationRecord
   validates :region_id, :province_id, :gender, :city, presence: true
 
   # has_one :listener_profile
-  # has_one :professional_profile
+  has_one :professional_profile, dependent: :destroy
+  accepts_nested_attributes_for :professional_profile, reject_if: :all_blank, allow_destroy: true
+
   has_many :listener_genres, dependent: :destroy
   accepts_nested_attributes_for :listener_genres, reject_if: :all_blank, allow_destroy: true
 
@@ -28,7 +30,7 @@ class User < ApplicationRecord
   end
 
   def industry_professional?
-    self.user_type == ENV['INDUSTRY_PROFESSIONAL']
+    self.user_type == ENV['PROFESSIONAL_TYPE']
   end
 
   private

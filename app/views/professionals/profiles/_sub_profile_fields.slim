@@ -1,0 +1,12 @@
+.nested-fields.sub-profile-wrap
+  .row
+    .col-md-7
+      = f.input :sub_profile_id, required: false, autofocus: true, as: :select,
+                collection: (f.object.persisted? ? SubProfile.where(profile_id: f.object.ip_profile.profile_id).pluck(:name, :id) : []), input_html: {class: 'jquery-chosen sub-profile-id'}
+    .col-md-5
+      .form-group
+        = f.label 'Action + '
+        br
+        = link_to_remove_association content_tag(:i, ' Remove Sub PRofile', {class: 'fa fa-trash-o'}),
+                                     f, class: 'btn btn-danger mrg20T btn-sm'
+  hr.hr-xs
