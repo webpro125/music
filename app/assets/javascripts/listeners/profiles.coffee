@@ -10,6 +10,8 @@ $ ->
 
   $('.profile-genre-form').on 'cocoon:after-insert', (e, insertedItem) ->
     $('.jquery-chosen').chosen({width: "100%"})
+    if insertedItem.hasClass('sub-genre-wrap') && insertedItem.closest('div.genre-wrap').find('select.genre-id').val() != ''
+      insertedItem.closest('div.genre-wrap').find('select.genre-id').trigger('change')
     return
 
   $('.jquery-chosen').chosen({width: "100%"})
