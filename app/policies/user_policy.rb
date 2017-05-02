@@ -9,9 +9,9 @@ class UserPolicy < LoggedInPolicy
     session[:user_type] == ENV[:LISTENER_TYPE] || session[:user_type] == ENV[:PROFESSIONAL_TYPE]
   end
 
-  alias_method :update?, :edit?
-  alias_method :create?, :new?
-  alias_method :index?, :new?
-  alias_method :update_profile?, :edit_profile?
-  alias_method :import_csv?, :new?
+  # alias_method :update?, :edit?
+  # alias_method :create?, :new?
+  # alias_method :index?, :new?
+  # alias_method :update_profile?, :edit_profile?
+  # alias_method :import_csv?, :new?
 end
