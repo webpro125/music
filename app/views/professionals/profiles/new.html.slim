@@ -12,6 +12,7 @@
                   :as => :radio_buttons,
                   :label => "Are You Hirable For Booking"
         .wrap.margin-bottom-20
+          h4 Please choose profiles
           = f.simple_fields_for :ip_profiles do |l|
             = render 'professionals/profiles/profile_fields', f: l
           = link_to_add_association content_tag(:i, '', {class: 'fa fa-plus'}) + ' Add More', f, :ip_profiles,
