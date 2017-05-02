@@ -1,0 +1,12 @@
+.nested-fields
+  .row
+    .col-md-7
+      = f.input :sub_genre_id, required: false, autofocus: true, as: :select,
+                collection: (f.object.persisted? ? SubGenre.where(genre_id: f.object.listener_genre.genre_id).pluck(:name, :id) : []), input_html: {class: 'jquery-chosen sub-genre-id'}
+    .col-md-5
+      .form-group
+        = f.label 'Action + '
+        br
+        = link_to_remove_association content_tag(:i, '', {class: 'fa fa-trash-o'}),
+                                     f, class: 'btn btn-danger mrg20T btn-sm'
+  hr.hr-xs

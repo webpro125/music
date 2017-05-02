@@ -1,11 +1,33 @@
 class HomeController < ApplicationController
   layout 'landing'
-  def choose_type
+  before_action :authenticate_user!, only:[:profile]
 
+  def index
+
+  end
+
+  def choose_type
+    session[:user_type] = ''
   end
 
   def get_region_province
     @provinces = Region.find(params[:id]).provinces
     render layout: false
+  end
+
+  def get_sub_genre
+    @sub_genres = Genre.find(params[:id]).sub_genres
+    render layout: false
+  end
+
+  def profile
+    unless current_user.listener_genres.any?
+      redirect_to new_listeners_profile_path
+    end
+
+    if current_user.industry_professional? && current_user.professional_profile.nil?
+      redirect_to new_professionals_profile_path
+    end
+
   end
 end

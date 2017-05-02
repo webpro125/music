@@ -12,7 +12,7 @@ html
     = javascript_include_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.js")
     = yield :javascript
     = csrf_meta_tags
-  body[class="#{(listener_signed_in?) ? 'header-fixed' : 'header-fixed '}"]
+  body[class="#{(user_signed_in?) ? 'header-fixed header-fixed-space' : 'header-fixed '}"]
     = yield :style
     .wrapper
       - if devise_controller?
@@ -32,9 +32,9 @@ html
               .collapse.navbar-collapse.navbar-responsive-collapse
                 .menu-container
                   ul.nav.navbar-nav
-                    - if listener_signed_in?
+                    - if user_signed_in?
                       li[class="dropdown #{page_class_active 'pages', 'index'}"]
                         = link_to 'Home', root_path, class: 'dropdown-toggle'
                       li.page-scroll
-                        = link_to 'Sign-out', log_out_path, method: :delete
+                        = link_to 'Sign-out', destroy_user_session_path, method: :delete
         = yield

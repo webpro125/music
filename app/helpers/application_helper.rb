@@ -3,16 +3,15 @@ module ApplicationHelper
     action == '' ? (params[:controller] == controller ? 'active' : '') : (params[:controller] == controller && params[:action] == action ? 'active' : '')
   end
 
-  def user_logged_in?
-    listener_signed_in? || professional_signed_in?
-  end
-
-  def log_out_path
-    if listener_signed_in?
-      destroy_listener_session_path
+  def user_type_title
+    if session[:user_type] == ENV['LISTENER_TYPE']
+      'Music Listener Sign Up'
+    elsif  session[:user_type] == ENV['PROFESSIONAL_TYPE']
+      'Industry Professional Sign Up'
     else
-      destroy_professional_session_path
+      '<script type="text/javascript">
+                  window.location.href="/choose_type"  // put your correct path in a string here
+      </script>'.html_safe
     end
-
   end
 end

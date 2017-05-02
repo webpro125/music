@@ -6,8 +6,8 @@
       |  Totalindie
     h3.color-light.cd-headline.margin-bottom-20 Music
     .animated.fadeInUp.wow[data-wow-duration="1s" data-wow-delay="0.5s"]
-    - unless user_logged_in?
-      a.btn-u.btn-brd.btn-brd-width-2.btn-brd-hover.btn-u-light.btn-u-block.rounded-4x.margin-right-10[href="#"]
+    - unless user_signed_in?
+      = link_to new_user_session_path, class: 'btn-u btn-brd btn-brd-width-2 btn-brd-hover btn-u-light btn-u-block rounded-4x margin-right-10' do
         | Login
       = link_to choose_type_path, class: 'btn-u btn-brd btn-brd-width-2 btn-brd-hover btn-u-light btn-u-block rounded-4x' do
         | SignUp

@@ -1,0 +1,2 @@
+module Professionals::RegistrationsHelper
+end

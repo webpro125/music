@@ -1,1 +1,13 @@
-p test
+.content.container
+  .row
+    .col-md-8.col-md-offset-2.col-sm-12
+      = render 'layouts/flash'
+      = simple_form_for(@user, url: listeners_profile_path, html: {class: 'profile-genre-form', method: 'POST'}) do |f|
+        .wrap
+          = f.simple_fields_for :listener_genres do |l|
+            = render 'listeners/profiles/genre_fields', f: l
+          = link_to_add_association content_tag(:i, '', {class: 'fa fa-plus'}) + ' Add More', f, :listener_genres,
+                                      partial: 'listeners/profiles/genre_fields', class: 'btn btn-info mrg15B btn-sm add-genre'
+          hr.hr-md
+        .form-actions
+          = f.button :submit, "Submit"

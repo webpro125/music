@@ -1,0 +1,20 @@
+/- f.object.listener_sub_genres.build
+.nested-fields
+  .row
+    .col-md-3
+      = f.input :genre_id, required: false, autofocus: true, as: :select,
+                collection: Genre.pluck(:name, :id), input_html: { class: 'jquery-chosen genre-id'}
+    .col-md-9
+      div
+        = f.simple_fields_for :listener_sub_genres do |l|
+          = render 'listeners/profiles/sub_genre_fields', f: l
+        = link_to_add_association content_tag(:i, '', {class: 'fa fa-plus'}) + ' Add More Sub genre', f, :listener_sub_genres,
+                                partial: 'listeners/profiles/sub_genre_fields', class: 'btn btn-info mrg15B btn-sm add-sub-genre'
+  .row
+    .col-md-2
+      .form-group
+        = f.label 'Action + '
+        br
+        = link_to_remove_association content_tag(:i, '', {class: 'fa fa-trash-o'}),
+                                     f, class: 'btn btn-danger mrg20T btn-sm'
+  hr.hr-md

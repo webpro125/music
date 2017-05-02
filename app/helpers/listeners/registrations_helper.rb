@@ -1,0 +1,2 @@
+module Listeners::RegistrationsHelper
+end
