@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   end
 
   def profile
-    unless current_user.listener_genres.any?
+    if current_user.music_listener?
       redirect_to new_listeners_profile_path
     end
 
